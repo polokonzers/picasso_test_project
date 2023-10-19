@@ -5,9 +5,33 @@ services:
     image: redis
     restart: always
 
+  db:
+    image: postgres:13.0-alpine
+    environment:
+      POSTGRES_DB: picasso_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+
   web:
     restart: always
     build: .
     ports:
       - "8000:8000"
     command: [ "python3", "./picasso_test_project/manage.py", "runserver", "0.0.0.0:8000" ]
+    depends_on:
+      - redis
+      - db
+
+  worker:
+    restart: always
+    build: .
+    command: [ "celery", "--workdir=./picasso_test_project", "-A", "picasso_test_project", "worker", "--loglevel=info" ]
+    depends_on:
+      - redis
+      - db
+  
+volumes:
+  pgdata:
