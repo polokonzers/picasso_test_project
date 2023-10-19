@@ -16,12 +16,10 @@ def small_uploading_handler(file_id):
 def uploading_handler(file_id):
     close_old_connections()
     logger = logging.getLogger(__name__)
-    logger.info("Upload handler started.")
     try:
-        files_instances = File.objects.all()
-        for file in files_instances:
-            file.processed = True
-            file.save()
-            logger.info(f"Processing file with id {file.pk}")
+        file_instance = File.objects.get(pk=file_id)
+        file_instance.processed = True
+        file_instance.save()
+        logger.info(f"File with id {file_id} was processed")
     except File.DoesNotExist:
-        logger.error(f"Fils don't exist.")
+        logger.error(f"File with id {file_id} not found.")
