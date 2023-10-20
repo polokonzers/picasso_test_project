@@ -7,13 +7,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 
 
 @shared_task
-def small_uploading_handler(file_id):
-    logger = logging.getLogger(__name__)
-    logger.info(f"Processing file with id {file_id}")
-
-
-@shared_task
 def uploading_handler(file_id):
+    '''Task for changing file.processed to True'''
     close_old_connections()
     logger = logging.getLogger(__name__)
     try:
