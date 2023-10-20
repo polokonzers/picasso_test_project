@@ -58,7 +58,7 @@ Example of response:
 
   
 
-**GET**-requests use endpoint `http://localhost:8000/upload/`.
+**GET**-requests use endpoint `http://localhost:8000/files/`.
 
 Example of response:
 
