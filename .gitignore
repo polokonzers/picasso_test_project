@@ -162,4 +162,4 @@ cython_debug/
 media/
 examples_media/
 redis_iamge/
-htmlcov/
+picasso_test_project/htmlcov/
